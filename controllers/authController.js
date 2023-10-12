@@ -65,4 +65,32 @@ async function getLogin(req, res) {
     }
 }
 
-module.exports = { getRegistration, getLogin };
+
+async function authorize(req, res) {
+    try {
+        const authHeader = req.headers.authorization;
+        if (!authHeader) {
+            res.json({ message: "Missing Token", status: false });
+        }
+        const token = authHeader.split(' ')[1];
+        const decodedToken = jwt.decode(token, process.env.SECRET);
+        if (decodedToken) {
+            const expiryTimestamp = decodedToken.exp;
+            const currentTimestamp = Math.floor(Date.now() / 1000);
+            if (expiryTimestamp && currentTimestamp > expiryTimestamp) {
+                res.json({ message: "Token Expired!", status: false });
+            } else {
+                res.json({ message: "Token valid", status: true });
+            }
+        }
+        else {
+            res.json({ message: "Token Invalid", status: false })
+        }
+    }
+    catch (err) {
+        console.log(err.message);
+        res.json({ message: "There is some issue.Please Try Again!", status: false })
+    }
+}
+
+module.exports = { getRegistration, getLogin, authorize };
