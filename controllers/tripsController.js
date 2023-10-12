@@ -29,7 +29,7 @@ async function findTrips(req, res) {
         }
     }
     catch (err) {
-        console.log("HELLO", err.message);
+        console.log(err.message);
         res.json({ message: "There is some issue.Please Try Again!", status: false, tripDetails: [] })
     }
 }
