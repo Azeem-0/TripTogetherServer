@@ -44,5 +44,7 @@ const tripsSchema = new mongoose.Schema(
         }
     },
 );
+tripsSchema.set('timestamps', true);
+
 const tripsModel = mongoose.model("trips", tripsSchema);
 module.exports = tripsModel;
