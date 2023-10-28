@@ -3,11 +3,10 @@ const tripsModel = require("../models/tripsModel");
 const checkTimeValidity = async () => {
     try {
         const currentDate = new Date();
-        const month = (currentDate.getMonth() + 1).toString();
-        const day = currentDate.getDate().toString();
-        const year = currentDate.getFullYear().toString();
-        const formattedDate = `${month}/${day}/${year}`;
-        await tripsModel.deleteMany({ 'timeDetails.tripDate': { $lt: formattedDate } });
+        console.log(currentDate);
+        await tripsModel.deleteMany({
+            'timeDetails.tripDate': { $lt: currentDate.toISOString() }
+        });
     }
     catch (err) {
         console.log(err.message);
