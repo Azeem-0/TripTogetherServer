@@ -16,7 +16,7 @@ mongoose.connect(process.env.DB).then(() => {
 });
 
 cron.schedule('30 3 * * *', () => {
-    checkTimeValidity();
+    checkTimeValidity();``
     checkAvailableSeats();
 });
 

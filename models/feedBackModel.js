@@ -6,7 +6,9 @@ const feedbackSchema = new mongoose.Schema(
             type: String,
             unique: false
         },
-        message: String
+        message: [{
+            type: String
+        }]
     },
 );
 feedbackSchema.set('timestamps', true);
