@@ -1,11 +1,11 @@
 const tripsModel = require("../models/tripsModel");
+const moment = require("moment");
 
 const checkTimeValidity = async () => {
     try {
-        const currentDate = new Date();
-        console.log(currentDate);
+        const currentDate = moment().format('M/D/YYYY');
         await tripsModel.deleteMany({
-            'timeDetails.tripDate': { $lt: currentDate.toISOString() }
+            'timeDetails.tripDate': { $lt: currentDate }
         });
     }
     catch (err) {
